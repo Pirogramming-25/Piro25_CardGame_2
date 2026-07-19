@@ -1,0 +1,36 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIRO GAME - Login After</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/after.css' %}" />
+  </head>
+  <body>
+    <main class="screen" aria-label="PIRO GAME after login">
+      <section class="game-frame">
+        <img class="background" src="{% static 'accounts/images/middle.png' %}" alt="" aria-hidden="true" />
+
+        <nav class="after-actions" aria-label="user menu">
+          <a class="top-action ranking-action" href="#" aria-label="ranking"></a>
+          <a class="top-action logout-action" href="{% url 'accounts:logout' %}" aria-label="logout"></a>
+        </nav>
+
+        <div class="hero">
+          <img class="title" src="{% static 'accounts/images/title.png' %}" alt="PIRO GAME" />
+          <p class="welcome">
+            <span class="ko-text">~</span>
+            <span class="en-text">user{{ request.user.id }}</span>
+            <span class="ko-text">&#45784; &#54872;&#50689;&#54633;&#45768;&#45796;~</span>
+          </p>
+          <div class="after-start-button" aria-label="game menu">
+            <button class="game-action start-action" type="button" aria-label="start game"></button>
+            <button class="game-action list-action" type="button" aria-label="game list"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
