@@ -21,9 +21,11 @@
         <div class="hero">
           <img class="title" src="{% static 'accounts/images/title.png' %}" alt="PIRO GAME" />
           <p class="welcome">
-            <span class="ko-text">~</span>
-            <span class="en-text">user{{ request.user.id }}</span>
-            <span class="ko-text">&#45784; &#54872;&#50689;&#54633;&#45768;&#45796;~</span>
+            <span class="welcome-marquee">
+              <span class="ko-text">~</span>
+              <span class="en-text">user{{ request.user.id }}</span>
+              <span class="ko-text">&#45784; &#54872;&#50689;&#54633;&#45768;&#45796;~</span>
+            </span>
           </p>
           <div class="after-start-button" aria-label="game menu">
             <button class="game-action start-action" type="button" aria-label="start game"></button>

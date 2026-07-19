@@ -115,6 +115,14 @@ body {
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.welcome-marquee {
+  display: inline-block;
+  min-width: 100%;
+  animation: welcome-marquee 6s linear infinite;
 }
 
 .welcome .ko-text,
@@ -130,6 +138,17 @@ body {
 
 .welcome .en-text {
   font-size: 1em;
+}
+
+@keyframes welcome-marquee {
+  0%,
+  100% {
+    transform: translateX(8%);
+  }
+
+  50% {
+    transform: translateX(-8%);
+  }
 }
 
 .after-start-button {
