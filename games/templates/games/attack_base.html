@@ -1,0 +1,38 @@
+{% load static %}
+
+<!-- attack_base.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PIRO GAME</title>
+  <link rel="stylesheet" href="{% static 'games/css/attack.css' %}">
+</head>
+<body>
+  <main class="screen">
+    <section class="game-frame">
+      <img class="background" src="{% static 'games/images/background/background.png' %}" alt="game background" aria-hidden="true" />
+
+      <div class="topbar-container">
+        <div class="logo-area">
+          <img class="title-logo" src="{% static 'games/images/logo/piro_game.png' %}" alt="PIRO GAME" />
+        </div>
+
+        <nav class="after-actions" aria-label="user menu">
+          <span class="top-action logout-action" aria-hidden="true"></span>
+          <a class="top-hitbox logout-hitbox" href="{% url 'accounts:logout' %}" aria-label="logout"></a>
+        </nav>
+      </div>
+
+      <div class="popup-frame">
+        <div class="round-label">공격 세팅</div>
+        <div class="round-box">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </section>
+  </main>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
