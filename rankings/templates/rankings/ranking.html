@@ -19,7 +19,7 @@
     <img src="{% static 'rankings/images/pirogamed.png' %}" alt="PIRO GAME" class="ranking-title-img">
 
     <nav class="header-buttons">
-        <a href="#" class="btn btn-play"></a>
+        <a href="{% url 'games:attack_user' %}" class="btn btn-play"></a>
         <a href="{% url 'accounts:logout' %}" class="btn btn-logout"></a>
     </nav>
   </header>
