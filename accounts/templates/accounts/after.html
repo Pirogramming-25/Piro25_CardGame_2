@@ -14,8 +14,10 @@
         <img class="background" src="{% static 'accounts/images/middle.png' %}" alt="" aria-hidden="true" />
 
         <nav class="after-actions" aria-label="user menu">
-          <a class="top-action ranking-action" href="#" aria-label="ranking"></a>
-          <a class="top-action logout-action" href="{% url 'accounts:logout' %}" aria-label="logout"></a>
+          <span class="top-action ranking-action" aria-hidden="true"></span>
+          <span class="top-action logout-action" aria-hidden="true"></span>
+          <a class="top-hitbox ranking-hitbox" href="/rankings/" aria-label="ranking"></a>
+          <a class="top-hitbox logout-hitbox" href="{% url 'accounts:logout' %}" aria-label="logout"></a>
         </nav>
 
         <div class="hero">
@@ -28,8 +30,10 @@
             </span>
           </p>
           <div class="after-start-button" aria-label="game menu">
-            <button class="game-action start-action" type="button" aria-label="start game"></button>
-            <button class="game-action list-action" type="button" aria-label="game list"></button>
+            <span class="game-action start-action" aria-hidden="true"></span>
+            <span class="game-action list-action" aria-hidden="true"></span>
+            <a class="game-hitbox start-hitbox" href="/games/" aria-label="start game"></a>
+            <a class="game-hitbox list-hitbox" href="/games/" aria-label="game list"></a>
           </div>
         </div>
       </section>

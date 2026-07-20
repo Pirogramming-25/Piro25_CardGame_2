@@ -60,6 +60,7 @@ body {
   background-size: 200% 100%;
   image-rendering: pixelated;
   transition: transform 120ms ease, filter 120ms ease;
+  pointer-events: none;
 }
 
 .login-action-in {
@@ -74,13 +75,34 @@ body {
   background-position: right center;
 }
 
-.login-action:hover,
-.login-action:focus-visible {
+.login-hitbox {
+  position: absolute;
+  top: 34%;
+  bottom: 36%;
+  z-index: 1;
+  display: block;
+}
+
+.login-hitbox-in {
+  left: 6%;
+  width: 41%;
+}
+
+.login-hitbox-up {
+  right: 6%;
+  width: 41%;
+}
+
+.login-actions:has(.login-hitbox-in:hover) .login-action-in,
+.login-actions:has(.login-hitbox-in:focus-visible) .login-action-in,
+.login-actions:has(.login-hitbox-up:hover) .login-action-up,
+.login-actions:has(.login-hitbox-up:focus-visible) .login-action-up {
   filter: brightness(1.06);
   animation: button-bounce 280ms ease-out both;
 }
 
-.login-action:active {
+.login-actions:has(.login-hitbox-in:active) .login-action-in,
+.login-actions:has(.login-hitbox-up:active) .login-action-up {
   animation: button-press 140ms ease-out both;
 }
 
@@ -149,21 +171,36 @@ body {
 }
 
 .start-button {
+  --start-hit-width: 20%;
+  --start-visual-width: 30%;
   position: absolute;
-  top: 57%;
+  display: block;
+  top: 60%;
   left: 50%;
-  width: 30%;
+  width: var(--start-hit-width);
   aspect-ratio: 898 / 380;
   padding: 0;
   border: 0;
   background-color: transparent;
-  background-image: url("../images/startbefore.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
   cursor: pointer;
   image-rendering: pixelated;
   transition: transform 120ms ease, filter 120ms ease;
   transform: translateX(-50%);
+}
+
+.start-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--start-visual-width) / var(--start-hit-width) * 100%);
+  aspect-ratio: 898 / 380;
+  background-image: url("../images/startbefore.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 
 .start-button:hover,
@@ -460,6 +497,21 @@ body {
     width: 40%;
   }
 
+  .login-hitbox {
+    top: 27%;
+    bottom: 28%;
+  }
+
+  .login-hitbox-in {
+    left: 8%;
+    width: 37%;
+  }
+
+  .login-hitbox-up {
+    right: 8%;
+    width: 37%;
+  }
+
   .title {
     top: 15%;
     left: 21%;
@@ -474,8 +526,9 @@ body {
   }
 
   .start-button {
-    top: 60%;
-    width: 30%;
+    top: 65%;
+    --start-hit-width: 20%;
+    --start-visual-width: 30%;
   }
 
   .auth-modal {

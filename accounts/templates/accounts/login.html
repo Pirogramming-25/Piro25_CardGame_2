@@ -14,8 +14,10 @@
         <img class="background" src="{% static 'accounts/images/morning.png' %}" alt="" aria-hidden="true" />
 
         <nav class="login-actions" aria-label="user menu">
-          <a class="login-action login-action-in" href="#login-modal" aria-label="login"></a>
-          <a class="login-action login-action-up" href="#signup-modal" aria-label="sign up"></a>
+          <span class="login-action login-action-in" aria-hidden="true"></span>
+          <span class="login-action login-action-up" aria-hidden="true"></span>
+          <a class="login-hitbox login-hitbox-in" href="#login-modal" aria-label="login"></a>
+          <a class="login-hitbox login-hitbox-up" href="#signup-modal" aria-label="sign up"></a>
         </nav>
 
         <div class="hero">
@@ -27,7 +29,7 @@
               <span class="ko-text">~</span>
             </span>
           </p>
-          <button class="start-button" type="button" aria-label="start game"></button>
+          <a class="start-button" href="#login-modal" aria-label="start game"></a>
         </div>
 
         <section id="login-modal" class="auth-modal login-modal{% if open_modal == 'login' %} is-open{% endif %}" aria-label="login">

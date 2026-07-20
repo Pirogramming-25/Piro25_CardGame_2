@@ -61,6 +61,7 @@ body {
   background-size: 200% 100%;
   image-rendering: pixelated;
   transition: transform 120ms ease, filter 120ms ease;
+  pointer-events: none;
 }
 
 .ranking-action {
@@ -75,13 +76,34 @@ body {
   background-position: right center;
 }
 
-.top-action:hover,
-.top-action:focus-visible {
+.top-hitbox {
+  position: absolute;
+  top: 35%;
+  bottom: 37%;
+  z-index: 1;
+  display: block;
+}
+
+.ranking-hitbox {
+  left: 10%;
+  width: 39%;
+}
+
+.logout-hitbox {
+  right: 8%;
+  width: 38%;
+}
+
+.after-actions:has(.ranking-hitbox:hover) .ranking-action,
+.after-actions:has(.ranking-hitbox:focus-visible) .ranking-action,
+.after-actions:has(.logout-hitbox:hover) .logout-action,
+.after-actions:has(.logout-hitbox:focus-visible) .logout-action {
   filter: brightness(1.06);
   animation: button-bounce 280ms ease-out both;
 }
 
-.top-action:active {
+.after-actions:has(.ranking-hitbox:active) .ranking-action,
+.after-actions:has(.logout-hitbox:active) .logout-action {
   animation: button-press 140ms ease-out both;
 }
 
@@ -177,6 +199,7 @@ body {
   cursor: pointer;
   image-rendering: pixelated;
   transition: transform 120ms ease, filter 120ms ease;
+  pointer-events: none;
 }
 
 .start-action {
@@ -191,13 +214,34 @@ body {
   background-position: right center;
 }
 
-.game-action:hover,
-.game-action:focus-visible {
+.game-hitbox {
+  position: absolute;
+  top: 34%;
+  bottom: 34%;
+  z-index: 1;
+  display: block;
+}
+
+.start-hitbox {
+  left: 14%;
+  width: 32%;
+}
+
+.list-hitbox {
+  right: 16%;
+  width: 31%;
+}
+
+.after-start-button:has(.start-hitbox:hover) .start-action,
+.after-start-button:has(.start-hitbox:focus-visible) .start-action,
+.after-start-button:has(.list-hitbox:hover) .list-action,
+.after-start-button:has(.list-hitbox:focus-visible) .list-action {
   filter: brightness(1.06);
   animation: button-bounce 280ms ease-out both;
 }
 
-.game-action:active {
+.after-start-button:has(.start-hitbox:active) .start-action,
+.after-start-button:has(.list-hitbox:active) .list-action {
   animation: button-press 140ms ease-out both;
 }
 
@@ -240,6 +284,21 @@ body {
     width: 39%;
   }
 
+  .top-hitbox {
+    top: 30%;
+    bottom: 33%;
+  }
+
+  .ranking-hitbox {
+    left: 11%;
+    width: 37%;
+  }
+
+  .logout-hitbox {
+    right: 8%;
+    width: 37%;
+  }
+
   .title {
     top: 12%;
     left: 22%;
@@ -256,5 +315,20 @@ body {
   .after-start-button {
     top: 54.5%;
     width: 49%;
+  }
+
+  .game-hitbox {
+    top: 33%;
+    bottom: 32%;
+  }
+
+  .start-hitbox {
+    left: 14%;
+    width: 31%;
+  }
+
+  .list-hitbox {
+    right: 15%;
+    width: 31%;
   }
 }
