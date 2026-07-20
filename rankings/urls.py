@@ -1,7 +1,8 @@
 from django.urls import path
+from . import views
 
 app_name = 'rankings'   # games, rankings로 각각 변경
 
 urlpatterns = [
-    # 각자 담당 뷰 연결할 때 한 줄씩만 추가
+    path('', views.ranking, name='ranking'),
 ]

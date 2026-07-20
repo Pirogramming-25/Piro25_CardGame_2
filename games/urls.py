@@ -1,12 +1,13 @@
 from django.urls import path
-from .views import attack
 
-from games.views import detail
+from games.views.list import game_list
+from .views import attack, detail
+
 
 app_name = 'games'
 
 urlpatterns = [
-    # 각자 담당 뷰 연결할 때 한 줄씩만 추가
+    path('', game_list, name='game_list'),
     path('<int:pk>/', detail.game_detail, name='detail'),
     path('<int:pk>/status/', detail.game_status, name='status'),
     path('<int:pk>/counter/', detail.counter_attack, name='counter'),

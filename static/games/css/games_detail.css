@@ -74,6 +74,7 @@ body {
 
 /* 로고 */
 .piro-title-image {
+    display: block;
     position: absolute;
     width: 491px;
     height: 117px;
@@ -81,6 +82,7 @@ body {
     top: 0px;
     background: url('../images/logo/piro_game.png') no-repeat center / contain;
     image-rendering: pixelated;
+    cursor: pointer;
 }
 
 /* 로그아웃 버튼 */
@@ -92,10 +94,10 @@ body {
 }
 
 .piro-nav-logout {
-    display: block;
-    width: 107px;
-    height: 46px;
-    background: url('../images/logo/logout.png') no-repeat center / contain;
+    display: inline-block;
+    width: clamp(130px, 11vw, 200px);
+    aspect-ratio: 479 / 178;
+    background: url('../../rankings/images/btn-logout.png') no-repeat center / contain;
     image-rendering: pixelated;
     transition: transform 120ms ease, filter 120ms ease;
 }

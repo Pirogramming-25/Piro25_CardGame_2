@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="piro-scene">
-        <div class="piro-title-image"></div>
+        <a href="{% url 'accounts:main' %}" class="piro-title-image" aria-label="메인으로"></a>
 
         <nav class="piro-nav">
             <a href="{% url 'accounts:logout' %}" class="piro-nav-logout" aria-label="로그아웃"></a>
@@ -27,7 +27,7 @@
                     <div class="piro-card-box">{{ my_card }}</div>
                 </div>
                 <div class="piro-modal-actions">
-                    <a href="#" class="piro-btn piro-btn-blue">전적목록</a>
+                    <a href="{% url 'games:game_list' %}" class="piro-btn piro-btn-blue">전적목록</a>
                 </div>
                 <script>
                     // 상대가 반격을 완료하면(status가 FINISHED로 바뀌면) 자동으로 새로고침한다.
@@ -55,7 +55,7 @@
                     {% if can_counter %}
                         <a href="{% url 'games:counter' game.id %}" class="piro-btn piro-btn-green">대응하기</a>
                     {% endif %}
-                    <a href="#" class="piro-btn piro-btn-blue">전적목록</a>
+                    <a href="{% url 'games:game_list' %}" class="piro-btn piro-btn-blue">전적목록</a>
                 </div>
 
             {% else %}
@@ -89,7 +89,7 @@
                 {% endif %}
 
                 <div class="piro-modal-actions">
-                    <a href="#" class="piro-btn piro-btn-blue">전적목록</a>
+                    <a href="{% url 'games:game_list' %}" class="piro-btn piro-btn-blue">전적목록</a>
                 </div>
             {% endif %}
         </div>
