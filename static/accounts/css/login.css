@@ -461,20 +461,20 @@ body {
   }
 
   .title {
-    top: 20%;
+    top: 15%;
     left: 21%;
     width: 64%;
   }
 
   .welcome {
-    top: 50%;
+    top: 52%;
     min-width: 38%;
     border-radius: 8px;
     font-size: clamp(10px, 2.7vw, 13px);
   }
 
   .start-button {
-    top: 64%;
+    top: 60%;
     width: 30%;
   }
 

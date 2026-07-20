@@ -242,12 +242,12 @@ body {
 
   .title {
     top: 12%;
-    left: 19%;
+    left: 22%;
     width: 61%;
   }
 
   .welcome {
-    top: 44.5%;
+    top: 50%;
     min-width: 42%;
     border-radius: 8px;
     font-size: clamp(10px, 2.7vw, 13px);
