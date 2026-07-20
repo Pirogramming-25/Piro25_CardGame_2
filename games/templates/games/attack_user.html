@@ -1,0 +1,21 @@
+{% extends "games/attack_base.html" %}
+{% load static %}
+{% block content %}
+  <p>상대 유저를 선택하세요!</p>
+  <div class="profile-scroll">
+    {% for user in users %}
+      <div class="profile-card" data-user="{{ user.name }}">
+        <div class="profile-frame">
+          <img src="{{ user.avatar_url }}">
+        </div>
+        <div class="profile-name">{{ user.name }}</div>
+      </div>
+    {% endfor %}
+  </div>
+  <p class="selected-user">선택한 유저 : </p>
+  <button class="counterattack-btn">COUNTER ATTACK</button>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'games/js/attack_user.js' %}"></script>
+{% endblock %}

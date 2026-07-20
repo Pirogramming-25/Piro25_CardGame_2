@@ -1,7 +1,9 @@
 from django.urls import path
+from .views import attack
 
 app_name = 'games'
 
 urlpatterns = [
-    # 각자 담당 뷰 연결할 때 한 줄씩만 추가
+    path('attack/', attack.attack_card_view, name='attack_card'),
+    path('attack/user/', attack.attack_user_view, name='attack_user'),
 ]
