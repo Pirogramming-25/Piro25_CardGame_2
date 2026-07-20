@@ -1,0 +1,18 @@
+{% extends "games/attack_base.html" %}
+{% load static %}
+{% block content %}
+  <p>공격할 카드를 선택하세요!</p>
+  <div class="card-row">
+    {% for card in cards %}
+      <div class="card {% if card == selected_card %}selected{% endif %}">{{ card }}</div>
+    {% endfor %}
+  </div>
+  <p class="selected-card">선택한 카드 : </p>
+  <a href="{% url 'games:attack_user' %}" class="next-user-btn">
+    <button class="next-btn">상대 유저 선택</button>
+  </a>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'games/js/attack_card.js' %}"></script>
+{% endblock %}
