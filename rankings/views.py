@@ -4,8 +4,8 @@ from accounts.models import User
 
 
 def ranking(request):
-    users = User.objects.order_by('-total_score', 'username')
+    users = User.objects.order_by('-total_score', 'username')[:6]
     return render(request, 'rankings/ranking.html', {
         'top_users': users[:3],
-        'rest_users': users[3:],
+        'rest_users': users[3:6],
     })
