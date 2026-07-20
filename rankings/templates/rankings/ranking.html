@@ -16,7 +16,9 @@
 <div class="ranking-page">
 
   <header class="ranking-header">
-    <img src="{% static 'rankings/images/pirogamed.png' %}" alt="PIRO GAME" class="ranking-title-img">
+    <a href="{% url 'accounts:main' %}">
+      <img src="{% static 'rankings/images/pirogamed.png' %}" alt="PIRO GAME" class="ranking-title-img">
+    </a>
 
     <nav class="header-buttons">
         <a href="{% url 'games:attack_user' %}" class="btn btn-play"></a>
