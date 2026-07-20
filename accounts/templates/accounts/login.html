@@ -1,0 +1,76 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIRO GAME</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}" />
+  </head>
+  <body>
+    <main class="screen" aria-label="PIRO GAME before login">
+      <section class="game-frame">
+        <img class="background" src="{% static 'accounts/images/morning.png' %}" alt="" aria-hidden="true" />
+
+        <nav class="login-actions" aria-label="user menu">
+          <a class="login-action login-action-in" href="#login-modal" aria-label="login"></a>
+          <a class="login-action login-action-up" href="#signup-modal" aria-label="sign up"></a>
+        </nav>
+
+        <div class="hero">
+          <img class="title" src="{% static 'accounts/images/title.png' %}" alt="PIRO GAME" />
+          <p class="welcome">
+            <span class="welcome-marquee">
+              <span class="ko-text">~&#50612;&#49436;&#50724;&#49464;&#50836;</span>
+              <span class="en-text">player</span>
+              <span class="ko-text">~</span>
+            </span>
+          </p>
+          <button class="start-button" type="button" aria-label="start game"></button>
+        </div>
+
+        <section id="login-modal" class="auth-modal login-modal{% if open_modal == 'login' %} is-open{% endif %}" aria-label="login">
+          <img class="modal-panel login-panel" src="{% static 'accounts/images/login.png' %}" alt="LOG IN" />
+
+          <form class="auth-form" method="post" action="{% url 'accounts:login' %}" autocomplete="off">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="login" />
+            <a class="modal-hotspot close-hotspot" href="{% url 'accounts:login' %}" aria-label="close"></a>
+            <a class="modal-hotspot google-hotspot" href="{% url 'accounts:google_login' %}" aria-label="login with Google"></a>
+            <a class="modal-hotspot kakao-hotspot" href="{% url 'accounts:kakao_login' %}" aria-label="login with Kakao"></a>
+            <a class="modal-hotspot naver-hotspot" href="{% url 'accounts:naver_login' %}" aria-label="login with Naver"></a>
+            <input class="modal-input id-hotspot" name="username" type="text" value="{{ login_username }}" aria-label="id" autocomplete="new-password" data-lpignore="true" data-form-type="other" />
+            <input class="modal-input password-hotspot" name="password" type="password" aria-label="password" autocomplete="new-password" data-lpignore="true" data-form-type="other" />
+            <button class="modal-hotspot login-hotspot" type="submit" aria-label="login"></button>
+            <a class="modal-hotspot signup-hotspot" href="#signup-modal" aria-label="sign up"></a>
+            {% if login_error %}
+              <p class="auth-message">{{ login_error }}</p>
+            {% endif %}
+          </form>
+        </section>
+
+        <section id="signup-modal" class="auth-modal signup-modal{% if open_modal == 'signup' %} is-open{% endif %}" aria-label="sign up">
+          <img class="modal-panel signup-panel" src="{% static 'accounts/images/signup.png' %}" alt="SIGN UP" />
+
+          <form class="auth-form" method="post" action="{% url 'accounts:login' %}" autocomplete="off">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="signup" />
+            <a class="modal-hotspot close-hotspot" href="{% url 'accounts:login' %}" aria-label="close"></a>
+            <a class="modal-hotspot google-hotspot" href="{% url 'accounts:google_login' %}" aria-label="sign up with Google"></a>
+            <a class="modal-hotspot kakao-hotspot" href="{% url 'accounts:kakao_login' %}" aria-label="sign up with Kakao"></a>
+            <a class="modal-hotspot naver-hotspot" href="{% url 'accounts:naver_login' %}" aria-label="sign up with Naver"></a>
+            <input class="modal-input id-hotspot" name="username" type="text" value="{{ signup_username }}" aria-label="id" autocomplete="username" />
+            <input class="modal-input password-hotspot" name="password1" type="password" aria-label="password" autocomplete="new-password" />
+            <input class="modal-input password-confirm-hotspot" name="password2" type="password" aria-label="password confirmation" autocomplete="new-password" />
+            <button class="modal-hotspot signup-submit-hotspot" type="submit" aria-label="submit sign up"></button>
+            <a class="modal-hotspot login-link-hotspot" href="#login-modal" aria-label="login"></a>
+            {% if signup_error %}
+              <p class="auth-message">{{ signup_error }}</p>
+            {% endif %}
+          </form>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
