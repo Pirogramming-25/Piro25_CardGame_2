@@ -43,6 +43,10 @@
 ---
 
 ## 🚀 로컬 실행 방법
+```
+★ .env 파일이 반드시 필요하니 아래의 링크에서 .env 값을 복사한 후 본인 폴더에 생성해주세요!! ★
+```
+https://app.notion.com/p/env-3a3b1e86a9e4807085b0ccae162d0e14?source=copy_link
 
 ```bash
 # 1. 저장소 클론
