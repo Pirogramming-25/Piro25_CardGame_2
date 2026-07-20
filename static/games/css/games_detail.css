@@ -74,6 +74,7 @@ body {
 
 /* 로고 */
 .piro-title-image {
+    display: block;
     position: absolute;
     width: 491px;
     height: 117px;
@@ -81,6 +82,7 @@ body {
     top: 0px;
     background: url('../images/logo/piro_game.png') no-repeat center / contain;
     image-rendering: pixelated;
+    cursor: pointer;
 }
 
 /* 로그아웃 버튼 */
