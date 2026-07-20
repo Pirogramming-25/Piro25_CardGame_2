@@ -1,181 +1,150 @@
 @import url("https://fastly.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
 
 /* ==========================================
-   1. 글로벌 & 기본 리셋
+   1. 글로벌 & 색상 변수 (game_detail.css 규격 통일)
    ========================================== */
+:root {
+  --piro-frame-border: #5F4AB5;
+  --piro-modal-bg: #FFF8F0;
+  --piro-modal-border: #1A1A1F;
+  --piro-modal-shadow: 8px 8px 0px rgba(26, 13, 51, 0.45);
+  --piro-title-color: #1A1A1F;
+  --piro-status-color: #8A8A8F;
+  --piro-status-alert: #E8425B;
+  --piro-label-color: #595961;
+  --piro-card-number-color: #E8425B;
+  --piro-btn-red: #E8425B;
+  --piro-btn-blue: #3D6BE5;
+  --piro-btn-green: #4CAF50;
+  --piro-btn-text: #FFFFFF;
+  --piro-btn-shadow: 3px 3px 0px rgba(26, 13, 51, 0.45);
+  --piro-card-shadow: 4px 4px 0px rgba(26, 13, 51, 0.45);
+
+  --piro-font-base: 'Galmuri11', 'Noto Sans KR', sans-serif;
+}
+
 * {
   box-sizing: border-box;
-  font-family: 'Galmuri11', sans-serif;
+  font-family: var(--piro-font-base);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-  background: #cfcfcf;
-}
-
-
-/* ==========================================
-   2. 게임 레이아웃 & 프레임
-   ========================================== */
-.screen {
-  width: min(99vw, calc(99vh * 1.777), 1360px);
-}
-
-.game-frame {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 1672 / 941;
-  border: 4px solid #5f4ab5;
-  background: #4b3eb1;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.background {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  image-rendering: pixelated;
-  z-index: 1;
+  background: #cfcfcf;
+  overflow: hidden;
 }
 
 
 /* ==========================================
-   3. 상단 탑바 (로고 & 로그아웃 버튼)
+   2. 게임 레이아웃 (game_detail.css .piro-scene 규격 적용)
    ========================================== */
-.topbar-container {
-  position: absolute;
-  top: 5.3%;
-  left: 1.7%;
-  right: 2.5%;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  pointer-events: none;
-}
-
-/* --- 로고 영역 --- */
-.logo-area {
-  width: 29.3%;
-  max-width: 491px;
-  aspect-ratio: 491 / 117;
-  pointer-events: auto;
-}
-
-.piro-title-image {
-    display: block;
-    position: absolute;
-    width: 491px;
-    height: 117px;
-    left: 29px;
-    top: 0px;
-    background: url('../images/logo/piro_game.png') no-repeat center / contain;
-    image-rendering: pixelated;
-    cursor: pointer;
-}
-
-/* --- 로그아웃 액션 버튼 --- */
-.after-actions {
+.piro-scene {
+  box-sizing: border-box;
   position: relative;
-  width: 18%;
-  min-width: 180px;
-  max-width: 280px;
-  aspect-ratio: 4 / 1.5;
-  pointer-events: auto;
+  width: 1280px;
+  height: 720px;
+  flex-shrink: 0;
+  background: url('../images/background/background.png') no-repeat center / cover;
+  border: 4px solid var(--piro-frame-border);
+  image-rendering: pixelated;
+  /* 화면 크기에 맞춰 프레임 자동 축소 */
+  transform: scale(min(calc(100vw / 1280px), calc(100vh / 720px), 1));
 }
 
-.top-action {
-  position: absolute;
-  inset: 0;
+
+/* ==========================================
+   3. 상단 헤더 영역 (game_detail.css 로고 & 로그아웃 규격 적용)
+   ========================================== */
+/* 메인 로고 */
+.piro-title-image {
   display: block;
-  background-image: url("../../rankings/images/btn-logout.png"); 
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center right;
+  position: absolute;
+  width: 491px;
+  height: 117px;
+  left: 29px;
+  top: 0px;
+  background: url('../images/logo/piro_game.png') no-repeat center / contain;
+  image-rendering: pixelated;
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* 로그아웃 버튼 */
+.piro-nav {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+}
+
+.piro-nav-logout {
+  display: inline-block;
+  width: clamp(130px, 11vw, 200px);
+  aspect-ratio: 479 / 178;
+  background: url('../../rankings/images/btn-logout.png') no-repeat center / contain;
   image-rendering: pixelated;
   transition: transform 120ms ease, filter 120ms ease;
-  pointer-events: none;
 }
 
-.logout-action {
-  background-position: right center;
-}
-
-.logout-hitbox {
-  position: absolute;
-  inset: 0;
-  z-index: 11;
-  display: block;
-}
-
-/* --- 상단 버튼 애니메이션 --- */
-.after-actions:has(.logout-hitbox:hover) .logout-action,
-.after-actions:has(.logout-hitbox:focus-visible) .logout-action {
+.piro-nav-logout:hover,
+.piro-nav-logout:focus-visible {
   filter: brightness(1.06);
-  animation: button-bounce 280ms ease-out both;
+  animation: piro-btn-bounce 280ms ease-out both;
 }
 
-.after-actions:has(.logout-hitbox:active) .logout-action {
-  animation: button-press 140ms ease-out both;
+.piro-nav-logout:active {
+  animation: piro-btn-press 140ms ease-out both;
 }
 
-@keyframes button-bounce {
+@keyframes piro-btn-bounce {
   0% { transform: translateY(0); }
   55% { transform: translateY(-12%); }
   78% { transform: translateY(-5%); }
   100% { transform: translateY(-8%); }
 }
 
-@keyframes button-press {
+@keyframes piro-btn-press {
   0% { transform: translateY(-1%); }
   100% { transform: translateY(0.5%); }
 }
 
-.ranking-btn:hover, .logout-btn:hover {
-  transform: translateY(-2px);
-}
-
 
 /* ==========================================
-   4. 내부 팝업 프레임
+   4. 내부 팝업 프레임 (attack.css 기본 유지 + 게임디테일 모달 변수 적용)
    ========================================== */
 .popup-frame {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: clamp(8px, 1.2vw, 16px);
-  width: clamp(320px, 38%, 580px);
-  max-width: 580px;
-  max-height: 76%;
-  background: #FFF8F0;
-  border: 4px solid #1A1A1F;
+  gap: 16px;
+  width: 580px;
+  max-height: 80%;
+  background: var(--piro-modal-bg);
+  border: 4px solid var(--piro-modal-border);
   border-radius: 12px;
-  box-shadow: 6px 6px 0 0 rgba(26, 13, 51, 0.45);
-  padding: clamp(18px, 3.2vw, 56px) clamp(22px, 3.2vw, 48px);
-  margin-top: 4.5%;
+  box-shadow: var(--piro-modal-shadow);
+  padding: 36px 48px;
   overflow: hidden;
 }
 
 .round-label {
-  color: #1A1A1F;
-  font-family: 'Galmuri11', sans-serif;
-  font-size: clamp(13px, 1.2vw, 16px);
+  color: var(--piro-title-color);
+  font-size: 18px;
   font-weight: 400;
   text-align: center;
   width: 100%;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #1A1A1F;
+  padding-bottom: 12px;
+  border-bottom: 4px solid var(--piro-modal-border);
   margin-bottom: 4px;
 }
 
@@ -184,12 +153,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(8px, 1vw, 14px);
+  gap: 14px;
 }
 
 .round-box p {
   margin: 0;
   text-align: center;
+  color: var(--piro-label-color);
+  font-size: 16px;
 }
 
 
@@ -198,41 +169,41 @@ body {
    ========================================== */
 .card-row {
   display: flex;
-  gap: 4%;
+  gap: 14px;
   justify-content: center;
   align-items: center;
   width: 100%;
+  padding-top: 6px;
 }
 
 .card {
-  width: clamp(34px, 4.2vw, 64px);
-  aspect-ratio: 64 / 90;
-  height: auto;
+  width: 64px;
+  height: 90px;
   background: #FFFFFF;
-  border: 3px solid #1A1A1F;
+  border: 3px solid var(--piro-modal-border);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(16px, 1.8vw, 26px);
+  font-size: 26px;
   font-weight: 400;
-  color: #1A1A1F;
+  color: var(--piro-modal-border);
   cursor: pointer;
-  box-shadow: 3px 3px 0 #646465;
-  transition: transform 0.12s ease, background-color 0.12s ease;
+  box-shadow: var(--piro-card-shadow);
+  transition: transform 0.12s ease, background-color 0.12s ease, border-color 0.12s ease;
 }
 
 .card:hover {
-  transform: scale(1.06);
+  transform: translateY(-4px);
+  box-shadow: 6px 6px 0px rgba(26, 13, 51, 0.45);
 }
 
 .card.selected {
-  border-color: #1A1A1F;
-  background: #FFF099;
-  border: 3px solid #d25705;
-  color: #d25705;
-  transform: scale(1.06);
-  box-shadow: 4px 4px 0 #646465;
+  background: #FFEE99;
+  border: 3px solid var(--piro-btn-red);
+  color: var(--piro-btn-red);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 6px 6px 0px rgba(26, 13, 51, 0.45);
 }
 
 
@@ -249,7 +220,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* 커스텀 스크롤바 */
 .profile-scroll::-webkit-scrollbar {
   height: 8px;
 }
@@ -274,10 +244,10 @@ body {
 .profile-frame {
   width: 88px;
   height: 88px;
-  border: 4px solid #8a6a3f;
+  border: 4px solid var(--piro-modal-border);
   border-radius: 10px;
   background: #f5ecd7;
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  box-shadow: var(--piro-card-shadow);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -297,7 +267,7 @@ body {
 }
 
 .profile-card.selected .profile-frame {
-  border-color: #e0a83a;
+  border-color: var(--piro-btn-red);
   background: #fff4d6;
   transform: translateY(-4px);
   box-shadow: 5px 5px 0 rgba(0,0,0,0.2), 0 0 0 3px #ffe08a;
@@ -306,118 +276,63 @@ body {
 .profile-name {
   margin-top: 8px;
   font-size: 13px;
-  color: #3a2e1f;
+  color: var(--piro-label-color);
   text-align: center;
 }
 
 .profile-card.selected .profile-name {
-  color: #b5741a;
+  color: var(--piro-btn-red);
   font-weight: bold;
 }
 
 
 /* ==========================================
-   7. 공통 하단 요소 & 버튼
+   7. 공통 하단 요소 & 버튼 (game_detail.css .piro-btn 스타일 적용)
    ========================================== */
 .selected-text {
   text-align: center;
-  font-size: 14px;
-  color: #6b5a3e;
+  font-size: 16px;
+  color: var(--piro-status-color);
 }
 
 .next-btn, .counterattack-btn {
-  display: inline-flex;        /* <a> 태그도 버튼처럼 중앙 정렬되도록 변경 */
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none;       /* 링크 밑줄 제거 */
+  text-decoration: none;
   
-  padding: 12px 40px;
-  color: white;
+  padding: 14px 28px;
+  height: 46px;
+  color: var(--piro-btn-text);
   border-radius: 8px;
-  font-family: 'Galmuri11', sans-serif;
-  font-size: 16px;
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+  font-size: 18px;
+  box-shadow: var(--piro-btn-shadow);
   cursor: pointer;
-  border: 3px solid;
-  transition: transform 0.12s ease;
+  border: 3px solid var(--piro-modal-border);
+  white-space: nowrap;
+  transition: transform 120ms ease, filter 120ms ease;
 }
 
 .next-btn {
-  background: #5b9bd5;
-  border-color: #2b5f8a;
+  background: var(--piro-btn-blue);
 }
 
 .counterattack-btn {
-  background: #d94f4f;
-  border-color: #8a1f1f;
+  background: var(--piro-btn-red);
 }
 
-.next-btn:hover, .counterattack-btn:hover {
-  transform: translateY(-2px);
+.next-btn:hover, .counterattack-btn:hover,
+.next-btn:focus-visible, .counterattack-btn:focus-visible {
+  filter: brightness(1.06);
+  animation: piro-btn-bounce 280ms ease-out both;
+}
+
+.next-btn:active, .counterattack-btn:active {
+  animation: piro-btn-press 140ms ease-out both;
 }
 
 .next-btn.disabled, .counterattack-btn.disabled {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
-}
-
-
-/* ==========================================
-   8. 반응형 미디어 쿼리 (모바일 대응)
-   ========================================== */
-@media (max-width: 700px), (max-height: 520px) {
-  .screen {
-    width: 96vw;
-  }
-
-  .topbar-container {
-    top: 4%;
-  }
-
-  .logo-area {
-    width: 24%;
-  }
-
-  .after-actions {
-    width: 14%;
-    min-width: 74px;
-  }
-
-  .popup-frame {
-    width: 39%;
-    min-width: 210px;
-    max-height: 72%;
-    padding: 14px 18px;
-    margin-top: 4%;
-    gap: 8px;
-    border-width: 3px;
-    box-shadow: 4px 4px 0 0 rgba(26, 13, 51, 0.45);
-  }
-
-  .round-label {
-    padding-bottom: 6px;
-    margin-bottom: 0;
-    font-size: 12px;
-  }
-
-  .round-box {
-    gap: 8px;
-    font-size: 12px;
-  }
-
-  .card {
-    width: clamp(28px, 6vw, 42px);
-    border-width: 2px;
-    border-radius: 7px;
-    box-shadow: 2px 2px 0 #646465;
-    font-size: clamp(14px, 3vw, 20px);
-  }
-
-  .next-btn,
-  .counterattack-btn {
-    padding: 8px 18px;
-    border-width: 2px;
-    font-size: 12px;
-  }
 }

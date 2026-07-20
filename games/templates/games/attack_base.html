@@ -1,6 +1,4 @@
 {% load static %}
-
-<!-- attack_base.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,31 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PIRO GAME</title>
   <link rel="stylesheet" href="{% static 'games/css/attack.css' %}">
+  {% block extra_css %}{% endblock %}
 </head>
 <body>
-  <main class="screen">
-    <section class="game-frame">
-      <img class="background" src="{% static 'games/images/background/background.png' %}" alt="game background" aria-hidden="true" />
+  <!-- 💡 game_detail.html의 상단 헤더 구조 적용 -->
+  <div class="piro-scene">
+    <a href="{% url 'accounts:main' %}" class="piro-title-image" aria-label="메인으로"></a>
 
-      <div class="topbar-container">
-        <div class="logo-area">
-          <a href="{% url 'accounts:main' %}" class="piro-title-image" aria-label="메인으로"></a>
-        </div>
+    <nav class="piro-nav">
+      <a href="{% url 'accounts:logout' %}" class="piro-nav-logout" aria-label="로그아웃"></a>
+    </nav>
 
-        <nav class="after-actions" aria-label="user menu">
-          <span class="top-action logout-action" aria-hidden="true"></span>
-          <a class="top-hitbox logout-hitbox" href="{% url 'accounts:logout' %}" aria-label="logout"></a>
-        </nav>
+    <!-- 💡 기존 attack_base의 popup-frame 유지 -->
+    <div class="popup-frame">
+      <div class="round-label">공격 세팅</div>
+      <div class="round-box">
+        {% block content %}{% endblock %}
       </div>
+    </div>
+  </div>
 
-      <div class="popup-frame">
-        <div class="round-label">공격 세팅</div>
-        <div class="round-box">
-          {% block content %}{% endblock %}
-        </div>
-      </div>
-    </section>
-  </main>
   {% block extra_js %}{% endblock %}
 </body>
 </html>
