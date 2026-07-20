@@ -1,10 +1,12 @@
+@import url("https://fastly.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: 'Galmuri11', 'Press Start 2P', monospace;
+  font-family: "Galmuri11", "Galmuri9", "Galmuri7", sans-serif;
 }
 
 a {

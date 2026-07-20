@@ -1,7 +1,13 @@
-@font-face {
-  font-family: 'Galmuri11';
-  src: url('https://cdn.jsdelivr.net/gh/galmuri-font/webfont/galmuri11/Galmuri11.woff2') format('woff2');
-  font-display: swap;
+@import url("https://fastly.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
+
+.ranking-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #cfcfcf;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .ranking-page {
@@ -18,10 +24,13 @@
   --silver: #d7d7e0;
   --bronze: #dd9a5c;
 
-  font-family: 'Galmuri11', 'Press Start 2P', monospace;
+  font-family: "Galmuri11", "Galmuri9", "Galmuri7", sans-serif;
   color: #fff;
-  min-height: 100vh;
+  width: min(99vw, calc(99vh * 1.777), 1360px);
+  max-height: 92vh;
+  overflow-y: auto;
   padding: 40px 60px 80px;
+  border: 4px solid var(--purple);
   background-color: var(--bg-purple-dark);
   background-image: url('../images/background.png');
   background-size: cover;
@@ -52,8 +61,8 @@
 
 .btn {
   display: inline-block;
-  width: clamp(100px, 8vw, 150px);
-  height: clamp(26px, 2vw, 36px);
+  width: clamp(130px, 11vw, 200px);
+  aspect-ratio: 479 / 178;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -66,10 +75,6 @@
 
 .btn-play {
   background-image: url('../images/btn-play.png');
-}
-
-.btn-history {
-  background-image: url('../images/btn-history.png');
 }
 
 .btn-logout {
@@ -86,11 +91,51 @@
 }
 
 .podium-slot {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   width: 160px;
+}
+
+.podium-slot.me::before {
+  content: 'YOU';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  background: var(--yellow-dark);
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border: 2px solid var(--panel-border);
+  border-radius: 6px;
+}
+
+.podium-slot.me .podium-avatar {
+  border-color: var(--yellow-dark);
+  box-shadow: 0 0 0 4px rgba(224, 168, 56, 0.55);
+}
+
+.podium-slot.me .podium-name {
+  color: var(--gold);
+}
+
+.podium-slot.me .podium-block {
+  border-color: var(--yellow-dark);
+}
+
+.podium-avatar.pulse {
+  animation: avatarPulse 0.6s ease;
+}
+
+@keyframes avatarPulse {
+  0% { box-shadow: 0 0 0 4px rgba(224, 168, 56, 0.55); }
+  50% { box-shadow: 0 0 0 4px rgba(224, 168, 56, 0.55), 0 0 0 11px rgba(224, 168, 56, 0.3); }
+  100% { box-shadow: 0 0 0 4px rgba(224, 168, 56, 0.55); }
 }
 
 .crown {
@@ -101,7 +146,7 @@
   width: 64px;
   height: 64px;
   object-fit: cover;
-  border: 4px solid var(--panel-border);
+  border: 3px solid var(--panel-border);
   border-radius: 12px;
   background: #fff;
   image-rendering: pixelated;
@@ -132,14 +177,18 @@
   width: 100%;
   margin-top: 6px;
   text-align: center;
-  border: 3px solid var(--panel-border);
-  border-radius: 8px 8px 0 0;
+  border: 2px solid var(--panel-border);
+  border-radius: 4px 4px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 24px;
+  letter-spacing: 1px;
   color: #fff;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 6px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -6px 0 rgba(0, 0, 0, 0.25);
 }
 
 .podium-1 { order: 2; }
@@ -148,17 +197,17 @@
 
 .podium-1 .podium-block {
   height: 110px;
-  background: linear-gradient(180deg, #ffdd77, var(--gold));
+  background: var(--gold);
 }
 
 .podium-2 .podium-block {
   height: 80px;
-  background: linear-gradient(180deg, #f0f0f5, var(--silver));
+  background: var(--silver);
 }
 
 .podium-3 .podium-block {
   height: 60px;
-  background: linear-gradient(180deg, #f0b57e, var(--bronze));
+  background: var(--bronze);
 }
 
 .rank-list {
@@ -174,7 +223,7 @@
   align-items: center;
   gap: 16px;
   background: var(--panel-cream);
-  border: 4px solid var(--panel-border);
+  border: 3px solid var(--panel-border);
   border-radius: 12px;
   padding: 10px 20px;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
@@ -197,7 +246,7 @@
   width: 40px;
   height: 40px;
   object-fit: cover;
-  border: 3px solid var(--panel-border);
+  border: 2px solid var(--panel-border);
   border-radius: 8px;
   background: #fff;
   image-rendering: pixelated;
@@ -233,8 +282,12 @@
 }
 
 @media (max-width: 768px) {
+  .ranking-screen {
+    padding: 8px;
+  }
   .ranking-page {
     padding: 24px;
+    max-height: 96vh;
   }
   .header-buttons {
     width: 100%;

@@ -31,4 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 500 + rankRows.length * 80 + 200);
   }
 
+  const myPodiumAvatar = document.querySelector('.podium-slot.me .podium-avatar');
+  if (myPodiumAvatar) {
+    myPodiumAvatar.addEventListener('animationend', () => {
+      myPodiumAvatar.classList.remove('pulse');
+    });
+    setTimeout(() => {
+      myPodiumAvatar.classList.add('pulse');
+    }, 150 + podiumBlocks.length * 150 + 500);
+  }
+
 });
