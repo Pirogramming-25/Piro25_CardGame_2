@@ -11,9 +11,11 @@
 <main class="screen" aria-label="PIRO GAME 게임 전적">
   <section class="game-frame history-page">
     <header class="history-header">
-      <h1>
-        <img class="history-logo" src="{% static 'games/images/logo/piro_game.png' %}" alt="Piro Game">
-      </h1>
+        <h1>
+          <a href="{% url 'accounts:main' %}" aria-label="메인 화면으로 이동">
+            <img class="history-logo" src="{% static 'games/images/logo/piro_game.png' %}" alt="Piro Game">
+          </a>
+        </h1>
       <nav class="pixel-nav" aria-label="주요 메뉴">
         <a class="header-sprite-button sprite-game-start" href="{% url 'games:attack_card' %}" aria-label="게임 시작"></a>
         <a class="header-sprite-button sprite-ranking" href="{% url 'rankings:ranking' %}" aria-label="랭킹"></a>
