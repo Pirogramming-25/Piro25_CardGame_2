@@ -12,7 +12,7 @@
 <body>
   <main class="screen">
     <section class="game-frame">
-      <img class="background" src="{% static 'games/images/background/background1.png' %}" alt="game background" aria-hidden="true" />
+      <img class="background" src="{% static 'games/images/background/background.png' %}" alt="game background" aria-hidden="true" />
 
       <div class="topbar-container">
         <div class="logo-area">
@@ -21,7 +21,7 @@
 
         <nav class="after-actions" aria-label="user menu">
           <span class="top-action logout-action" aria-hidden="true"></span>
-          <a class="top-hitbox logout-hitbox" href="" src="{% static 'games/images/logo/logout.png' %}" aria-label="logout"></a>
+          <a class="top-hitbox logout-hitbox" href="{% url 'accounts:logout' %}" aria-label="logout"></a>
         </nav>
       </div>
 
