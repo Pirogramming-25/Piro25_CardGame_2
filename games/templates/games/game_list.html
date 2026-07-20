@@ -19,9 +19,9 @@
       <article class="game-card">
         <span class="game-number">{{ page_obj.start_index|add:forloop.counter0 }}</span>
         <div class="players">
-          <div class="player{% if row.attacker == request.user %} current-user{% endif %}"><strong>ATTACKER</strong><div class="avatar avatar-attacker" aria-hidden="true">⚔</div><span>{{ row.attacker.username }}</span></div>
+          <div class="player{% if row.attacker == request.user %} current-user{% endif %}"><strong>ATTACKER</strong><div class="avatar profile-slot" role="img" aria-label="{{ row.attacker.username }} 프로필"><span class="profile-placeholder" aria-hidden="true">{{ row.attacker.username|first|upper }}</span>{# 프로필 연동 후 profile-placeholder를 profile-image img로 교체 #}</div><span>{{ row.attacker.username }}</span></div>
           <span class="battle-arrow" aria-hidden="true">➜</span>
-          <div class="player{% if row.defender == request.user %} current-user{% endif %}"><strong>DEFENDER</strong><div class="avatar avatar-defender" aria-hidden="true">⛨</div><span>{{ row.defender.username }}</span></div>
+          <div class="player{% if row.defender == request.user %} current-user{% endif %}"><strong>DEFENDER</strong><div class="avatar profile-slot" role="img" aria-label="{{ row.defender.username }} 프로필"><span class="profile-placeholder" aria-hidden="true">{{ row.defender.username|first|upper }}</span>{# 프로필 연동 후 profile-placeholder를 profile-image img로 교체 #}</div><span>{{ row.defender.username }}</span></div>
         </div>
         <div class="game-state">
           {% if row.can_cancel %}
