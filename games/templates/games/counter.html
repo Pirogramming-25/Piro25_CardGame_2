@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>반격하기</title>
+    <link rel="stylesheet" href="{% static 'games/css/games_detail.css' %}">
+</head>
+<body>
+    <div class="piro-scene">
+        <div class="piro-title-image"></div>
+
+        <nav class="piro-nav">
+            <a href="#" class="piro-nav-logout" aria-label="로그아웃"></a>
+        </nav>
+
+        <div class="piro-modal is-select">
+            <div class="piro-modal-title">
+                {{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}
+            </div>
+            <div class="piro-divider"></div>
+            <div class="piro-modal-status">반격할 카드를 선택하세요!</div>
+
+            <form method="post" id="counter-form">
+                {% csrf_token %}
+                <div class="piro-card-select-row">
+                    {% for card in cards %}
+                        <label class="piro-card-option">
+                            <input type="radio" name="card" value="{{ card }}" required
+                                   onchange="document.getElementById('selected-card').textContent = '{{ card }}';">
+                            <span class="piro-card-choice">{{ card }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+                <br>
+                <div class="piro-selected-label">선택한 카드 : <span id="selected-card">-</span></div>
+                <br>
+                <button type="submit" class="piro-btn piro-btn-red is-cta">COUNTERATTACK</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
