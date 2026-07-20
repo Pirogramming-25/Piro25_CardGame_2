@@ -31,7 +31,9 @@
       {% if forloop.counter == 2 %}
       <div class="podium-slot podium-2 {% if user.username == request.user.username %}me{% endif %}">
         <span class="crown">🥈</span>
-        <div class="podium-avatar avatar-fallback">{{ user.username|first|upper }}</div>
+        <div class="podium-avatar">
+          <img src="{{ user.avatar_url }}" alt="{{ user.username }} 프로필">
+        </div>
         <span class="podium-name">{{ user.username }}</span>
         <span class="podium-score">{{ user.total_score }}점</span>
         <div class="podium-block">2</div>
@@ -39,7 +41,9 @@
       {% elif forloop.counter == 1 %}
       <div class="podium-slot podium-1 {% if user.username == request.user.username %}me{% endif %}">
         <span class="crown">👑</span>
-        <div class="podium-avatar avatar-fallback">{{ user.username|first|upper }}</div>
+        <div class="podium-avatar">
+          <img src="{{ user.avatar_url }}" alt="{{ user.username }} 프로필">
+        </div>
         <span class="podium-name">{{ user.username }}</span>
         <span class="podium-score">{{ user.total_score }}점</span>
         <div class="podium-block">1</div>
@@ -47,7 +51,9 @@
       {% elif forloop.counter == 3 %}
       <div class="podium-slot podium-3 {% if user.username == request.user.username %}me{% endif %}">
         <span class="crown">🥉</span>
-        <div class="podium-avatar avatar-fallback">{{ user.username|first|upper }}</div>
+        <div class="podium-avatar">
+          <img src="{{ user.avatar_url }}" alt="{{ user.username }} 프로필">
+        </div>
         <span class="podium-name">{{ user.username }}</span>
         <span class="podium-score">{{ user.total_score }}점</span>
         <div class="podium-block">3</div>
@@ -60,7 +66,9 @@
     {% for user in rest_users %}
     <div class="rank-row {% if user.username == request.user.username %}me{% endif %}">
       <span class="rank-number">{{ forloop.counter|add:3 }}</span>
-      <div class="rank-avatar avatar-fallback">{{ user.username|first|upper }}</div>
+      <div class="rank-avatar">
+        <img src="{{ user.avatar_url }}" alt="{{ user.username }} 프로필">
+      </div>
       <span class="rank-name">{{ user.username }}</span>
       <span class="rank-score">{{ user.total_score }} 점</span>
     </div>

@@ -36,8 +36,7 @@
             <div class="player{% if row.attacker == request.user %} current-user{% endif %}">
               <strong>ATTACKER</strong>
               <div class="avatar profile-slot" role="img" aria-label="{{ row.attacker.username }} 프로필">
-                <span class="profile-placeholder" aria-hidden="true">{{ row.attacker.username|first|upper }}</span>
-                {# 프로필 저장 필드가 확정되면 이 자리를 profile-image <img>로 교체합니다. #}
+                <img class="profile-image" src="{{ row.attacker_avatar }}" alt="{{ row.attacker.username }} 프로필">
               </div>
               <span>{{ row.attacker.username }}</span>
             </div>
@@ -47,8 +46,7 @@
             <div class="player{% if row.defender == request.user %} current-user{% endif %}">
               <strong>DEFENDER</strong>
               <div class="avatar profile-slot" role="img" aria-label="{{ row.defender.username }} 프로필">
-                <span class="profile-placeholder" aria-hidden="true">{{ row.defender.username|first|upper }}</span>
-                {# 프로필 저장 필드가 확정되면 이 자리를 profile-image <img>로 교체합니다. #}
+                <img class="profile-image" src="{{ row.defender_avatar }}" alt="{{ row.defender.username }} 프로필">
               </div>
               <span>{{ row.defender.username }}</span>
             </div>

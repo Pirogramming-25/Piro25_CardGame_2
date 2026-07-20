@@ -7,42 +7,48 @@ from games.models import Game
 User = get_user_model()
 
 
-def get_or_create_user_avatars(request, users):
-    if 'user_avatars' not in request.session:
-        request.session['user_avatars'] = {}
+# def get_or_create_user_avatars(request, users):
+#     if 'user_avatars' not in request.session:
+#         request.session['user_avatars'] = {}
 
-    user_avatars = dict(request.session['user_avatars'])
-    avatar_list = [f'/static/games/images/avatar/user{i}.png' for i in range(1, 6)]
+#     user_avatars = dict(request.session['user_avatars'])
+#     avatar_list = [f'/static/games/images/avatar/user{i}.png' for i in range(1, 6)]
     
-    updated = False
-    for user in users:
-        str_id = str(user.id)
-        if str_id not in user_avatars:
-            user_avatars[str_id] = random.choice(avatar_list)
-            updated = True
+#     updated = False
+#     for user in users:
+#         str_id = str(user.id)
+#         if str_id not in user_avatars:
+#             user_avatars[str_id] = random.choice(avatar_list)
+#             updated = True
 
-    if updated:
-        request.session['user_avatars'] = user_avatars
-        request.session.modified = True
+#     if updated:
+#         request.session['user_avatars'] = user_avatars
+#         request.session.modified = True
+
+#     return user_avatars
+def get_or_create_user_avatars(request, users):
+    avatar_list = [f'/static/games/images/avatar/user{i}.png' for i in range(1, 6)]
+    user_avatars = {}
+
+    for user in users:
+        # user.id를 아바타 개수(5)로 나눈 나머지를 인덱스로 활용
+        # 예: id가 1, 6, 11인 유저 -> user1.png 고정
+        # 예: id가 2, 7, 12인 유저 -> user2.png 고정
+        avatar_index = (user.id - 1) % len(avatar_list)
+        user_avatars[str(user.id)] = avatar_list[avatar_index]
 
     return user_avatars
 
+
 def attack_card_view(request):
     if request.method == 'POST':
-        # 💡 터미널에 전달받은 POST 데이터 전체 출력
-        print("=== POST DATA ===", request.POST)
-        
         card = request.POST.get('card')
-        print("=== CARD VALUE ===", repr(card)) # 값의 형태(None, "", "5" 등) 확인
-
         try:
             card = int(card)
         except (TypeError, ValueError):
-            # 💡 에러 원인을 화면에 구체적으로 보여주도록 수정
-            return HttpResponseBadRequest(f"유효하지 않은 카드입니다. (전달된 값: '{card}')")
+            return HttpResponseBadRequest('유효하지 않은 카드입니다.')
 
         request.session['selected_card'] = card
-        request.session.modified = True
         return redirect('games:attack_user')
 
     cards = random.sample(range(1, 11), 5)
