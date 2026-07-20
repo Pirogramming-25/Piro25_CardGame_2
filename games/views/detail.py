@@ -6,6 +6,7 @@ from django.http import HttpResponseBadRequest, HttpResponseForbidden, JsonRespo
 from django.shortcuts import get_object_or_404, redirect, render
 
 from games.models import Game
+from games.views.attack import get_or_create_user_avatars
 
 CARD_RANGE = range(1, 11)
 CARD_COUNT = 5
@@ -19,6 +20,8 @@ def game_detail(request, pk):
 
     if request.user.id not in (game.attacker_id, game.defender_id):
         return HttpResponseForbidden()
+
+    avatars_map = get_or_create_user_avatars(request, [game.attacker, game.defender])
 
     is_attacker = request.user.id == game.attacker_id
     is_finished = game.status == Game.Status.FINISHED
@@ -54,6 +57,8 @@ def game_detail(request, pk):
         'result': result,
         'score_delta': score_delta,
         'can_counter': game.status == Game.Status.WAITING and not is_attacker,
+        'attacker_avatar': avatars_map.get(str(game.attacker.id)),
+        'defender_avatar': avatars_map.get(str(game.defender.id)),
     }
     return render(request, 'games/game_detail.html', context)
 

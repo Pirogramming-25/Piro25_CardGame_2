@@ -1,16 +1,26 @@
 {% extends "games/attack_base.html" %}
 {% load static %}
+
 {% block content %}
   <p>공격할 카드를 선택하세요!</p>
+
   <div class="card-row">
     {% for card in cards %}
-      <div class="card {% if card == selected_card %}selected{% endif %}">{{ card }}</div>
+      <!-- 💡 data-card 속성을 추가하여 JS가 클릭한 카드 숫자를 쉽게 읽을 수 있게 합니다 -->
+      <div class="card" data-card="{{ card }}">{{ card }}</div>
     {% endfor %}
   </div>
-  <p class="selected-card">선택한 카드 : </p>
-  <a href="{% url 'games:attack_user' %}" class="next-user-btn">
-    <button class="next-btn">상대 유저 선택</button>
-  </a>
+
+  <p class="selected-card">선택한 카드 : <span id="selected-card-num"></span></p>
+
+  <form id="attack-card-form" method="POST" action="{% url 'games:attack_card' %}">
+    {% csrf_token %}
+    <!-- 선택한 카드 번호가 담길 hidden input (name="card") -->
+    <input type="hidden" name="card" id="selected-card-input" value="">
+    
+    <!-- submit 버튼 -->
+    <button type="submit" class="next-btn" id="next-btn">상대 유저 선택</button>
+  </form>
 {% endblock %}
 
 {% block extra_js %}

@@ -1,19 +1,32 @@
 {% extends "games/attack_base.html" %}
 {% load static %}
+
 {% block content %}
   <p>상대 유저를 선택하세요!</p>
+  
   <div class="profile-scroll">
     {% for user in users %}
-      <div class="profile-card" data-user="{{ user.name }}">
+      <!-- JS에서 ID 값을 쉽게 가져오도록 data-user-id 추가 -->
+      <div class="profile-card" data-user="{{ user.name }}" data-user-id="{{ user.id }}">
         <div class="profile-frame">
-          <img src="{{ user.avatar_url }}">
+          <img src="{{ user.avatar_url }}" alt="{{ user.name }}">
         </div>
         <div class="profile-name">{{ user.name }}</div>
       </div>
     {% endfor %}
   </div>
-  <p class="selected-user">선택한 유저 : </p>
-  <button class="counterattack-btn">COUNTER ATTACK</button>
+
+  <p class="selected-user">선택한 유저 : <span id="selected-user-name"></span></p>
+
+  <!-- 💡 POST 전송을 위한 FORM 추가 -->
+  <form id="attack-user-form" method="POST" action="{% url 'games:attack_user' %}">
+    {% csrf_token %}
+    <!-- JS에서 카드 클릭 시 선택한 유저의 ID를 담아줄 input -->
+    <input type="hidden" name="defender_id" id="selected-defender-id" value="">
+    
+    <!-- a 태그 대신 submit 버튼 사용 -->
+    <button type="submit" class="counterattack-btn">ATTACK</button>
+  </form>
 {% endblock %}
 
 {% block extra_js %}

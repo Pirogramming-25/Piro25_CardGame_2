@@ -330,14 +330,20 @@ body {
 }
 
 .next-btn, .counterattack-btn {
-  padding: clamp(8px, 1vw, 12px) clamp(22px, 3vw, 40px);
+  display: inline-flex;        /* <a> 태그도 버튼처럼 중앙 정렬되도록 변경 */
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;       /* 링크 밑줄 제거 */
+  
+  padding: 12px 40px;
   color: white;
   border-radius: 8px;
   font-family: 'Galmuri11', sans-serif;
-  font-size: clamp(12px, 1.25vw, 16px);
+  font-size: 16px;
   box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
   cursor: pointer;
   border: 3px solid;
+  transition: transform 0.12s ease;
 }
 
 .next-btn {
