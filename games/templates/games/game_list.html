@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}게임 전적 | PIRO GAME{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'games/css/game_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="screen" aria-label="PIRO GAME 게임 전적">
+  <section class="game-frame history-page">
+    <header class="history-header">
+      <h1>
+        <img class="history-logo" src="{% static 'games/images/logo/piro_game.png' %}" alt="Piro Game">
+      </h1>
+      <nav class="pixel-nav" aria-label="주요 메뉴">
+        <a class="header-sprite-button sprite-game-start" href="{% url 'games:attack_card' %}" aria-label="게임 시작"></a>
+        <a class="header-sprite-button sprite-ranking" href="{% url 'rankings:ranking' %}" aria-label="랭킹"></a>
+        <form action="{% url 'accounts:logout' %}" method="post">
+          {% csrf_token %}
+          <button class="header-sprite-button sprite-logout" type="submit" aria-label="로그아웃"></button>
+        </form>
+      </nav>
+    </header>
+
+    <p class="current-player">[현재 플레이어: <strong>{{ request.user.username }}</strong>]</p>
+
+    <section class="history-list" aria-label="게임 전적">
+      {% for row in page_obj %}
+        <article class="game-card">
+          <span class="game-number">{{ page_obj.start_index|add:forloop.counter0 }}</span>
+          <div class="players">
+            <div class="player{% if row.attacker == request.user %} current-user{% endif %}">
+              <strong>ATTACKER</strong>
+              <div class="avatar profile-slot" role="img" aria-label="{{ row.attacker.username }} 프로필">
+                <span class="profile-placeholder" aria-hidden="true">{{ row.attacker.username|first|upper }}</span>
+                {# 프로필 저장 필드가 확정되면 이 자리를 profile-image <img>로 교체합니다. #}
+              </div>
+              <span>{{ row.attacker.username }}</span>
+            </div>
+
+            <span class="battle-arrow" aria-hidden="true">➜</span>
+
+            <div class="player{% if row.defender == request.user %} current-user{% endif %}">
+              <strong>DEFENDER</strong>
+              <div class="avatar profile-slot" role="img" aria-label="{{ row.defender.username }} 프로필">
+                <span class="profile-placeholder" aria-hidden="true">{{ row.defender.username|first|upper }}</span>
+                {# 프로필 저장 필드가 확정되면 이 자리를 profile-image <img>로 교체합니다. #}
+              </div>
+              <span>{{ row.defender.username }}</span>
+            </div>
+          </div>
+
+          <div class="game-state">
+            {% if row.can_cancel %}
+              <span class="state state-pending">⌛ 진행 중...</span>
+              <form method="post" onsubmit="return confirm('정말 이 게임을 취소할까요?');">
+                {% csrf_token %}
+                <button class="cancel-button" type="submit" name="cancel_id" value="{{ row.id }}">게임 취소</button>
+              </form>
+            {% elif row.can_counter %}
+              <a class="state state-counter" href="{% url 'games:counter' row.id %}">⚡ COUNTER ATTACK ⚡</a>
+            {% elif row.result == 'win' %}
+              <span class="state state-win">★ 승리 ★</span>
+            {% elif row.result == 'lose' %}
+              <span class="state state-lose">☠ 패배 ☠</span>
+            {% else %}
+              <span class="state state-draw">◆ 무승부 ◆</span>
+            {% endif %}
+          </div>
+
+          <a class="detail-button" href="{% url 'games:detail' row.id %}">게임 정보</a>
+        </article>
+      {% empty %}
+        <div class="empty-history">
+          <span aria-hidden="true">♥</span>
+          <p>아직 진행한 게임이 없어요.</p>
+          <a href="{% url 'games:attack_card' %}">첫 게임 시작하기</a>
+        </div>
+      {% endfor %}
+    </section>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+      <nav class="pagination" aria-label="게임 전적 페이지">
+        {% if page_obj.has_previous %}
+          <a class="page-arrow" href="?page={{ page_obj.previous_page_number }}" aria-label="이전 페이지">◀</a>
+        {% endif %}
+        {% for page_number in page_obj.paginator.page_range %}
+          {% if page_number == page_obj.number %}
+            <span class="page-number active" aria-current="page">{{ page_number }}</span>
+          {% else %}
+            <a class="page-number" href="?page={{ page_number }}">{{ page_number }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <a class="page-arrow" href="?page={{ page_obj.next_page_number }}" aria-label="다음 페이지">▶</a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}
