@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ranking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'rankings/css/ranking.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'rankings/js/ranking.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="ranking-screen">
+<div class="ranking-page">
+
+  <header class="ranking-header">
+    <a href="{% url 'accounts:main' %}">
+      <img src="{% static 'rankings/images/pirogamed.png' %}" alt="PIRO GAME" class="ranking-title-img">
+    </a>
+
+    <nav class="header-buttons">
+        <a href="{% url 'accounts:main' %}" class="btn btn-play"></a>
+        <a href="{% url 'accounts:logout' %}" class="btn btn-logout"></a>
+    </nav>
+  </header>
+
+  <section class="podium">
+    {% for user in top_users %}
+      {% if forloop.counter == 2 %}
+      <div class="podium-slot podium-2 {% if user.username == request.user.username %}me{% endif %}">
+        <span class="crown">🥈</span>
+        <div class="podium-avatar">
+          <img src="{{ user.avatar_url }}" alt="{{ user.username }} 프로필">
+        </div>
+        <span class="podium-name">{{ user.username }}</span>
+        <span class="podium-score">{{ user.total_score }}점</span>
+        <div class="podium-block">2</div>
+      </div>
+      {% elif forloop.counter == 1 %}
+      <div class="podium-slot podium-1 {% if user.username == request.user.username %}me{% endif %}">
+        <span class="crown">👑</span>
+        <div class="podium-avatar">
+          <img src="{{ user.avatar_url }}" alt="{{ user.username }} 프로필">
+        </div>
+        <span class="podium-name">{{ user.username }}</span>
+        <span class="podium-score">{{ user.total_score }}점</span>
+        <div class="podium-block">1</div>
+      </div>
+      {% elif forloop.counter == 3 %}
+      <div class="podium-slot podium-3 {% if user.username == request.user.username %}me{% endif %}">
+        <span class="crown">🥉</span>
+        <div class="podium-avatar">
+          <img src="{{ user.avatar_url }}" alt="{{ user.username }} 프로필">
+        </div>
+        <span class="podium-name">{{ user.username }}</span>
+        <span class="podium-score">{{ user.total_score }}점</span>
+        <div class="podium-block">3</div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </section>
+
+  <main class="rank-list">
+    {% for user in rest_users %}
+    <div class="rank-row {% if user.username == request.user.username %}me{% endif %}">
+      <span class="rank-number">{{ forloop.counter|add:3 }}</span>
+      <div class="rank-avatar">
+        <img src="{{ user.avatar_url }}" alt="{{ user.username }} 프로필">
+      </div>
+      <span class="rank-name">{{ user.username }}</span>
+      <span class="rank-score">{{ user.total_score }} 점</span>
+    </div>
+    {% empty %}
+    <p class="empty-text">아직 랭킹 데이터가 없습니다.</p>
+    {% endfor %}
+  </main>
+
+</div>
+</div>
+{% endblock %}

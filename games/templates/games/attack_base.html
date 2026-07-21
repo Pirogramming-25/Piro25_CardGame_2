@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PIRO GAME</title>
+  <link rel="stylesheet" href="{% static 'games/css/attack.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <!-- 💡 game_detail.html의 상단 헤더 구조 적용 -->
+  <div class="piro-scene">
+    <a href="{% url 'accounts:main' %}" class="piro-title-image" aria-label="메인으로"></a>
+
+    <nav class="piro-nav">
+      <a href="{% url 'accounts:logout' %}" class="piro-nav-logout" aria-label="로그아웃"></a>
+    </nav>
+
+    <!-- 💡 기존 attack_base의 popup-frame 유지 -->
+    <div class="popup-frame">
+      <div class="round-label">공격 세팅</div>
+      <div class="round-box">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

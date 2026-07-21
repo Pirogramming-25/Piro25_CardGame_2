@@ -1,0 +1,42 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIRO GAME - Login After</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/after.css' %}" />
+  </head>
+  <body>
+    <main class="screen" aria-label="PIRO GAME after login">
+      <section class="game-frame">
+        <img class="background" src="{% static 'accounts/images/middle.png' %}" alt="" aria-hidden="true" />
+
+        <nav class="after-actions" aria-label="user menu">
+          <span class="top-action ranking-action" aria-hidden="true"></span>
+          <span class="top-action logout-action" aria-hidden="true"></span>
+          <a class="top-hitbox ranking-hitbox" href="/rankings/" aria-label="ranking"></a>
+          <a class="top-hitbox logout-hitbox" href="{% url 'accounts:logout' %}" aria-label="logout"></a>
+        </nav>
+
+        <div class="hero">
+          <img class="title" src="{% static 'accounts/images/title.png' %}" alt="PIRO GAME" />
+          <p class="welcome">
+            <span class="welcome-marquee">
+              <span class="ko-text">~</span>
+              <span class="en-text">user{{ request.user.id }}</span>
+              <span class="ko-text">&#45784; &#54872;&#50689;&#54633;&#45768;&#45796;~</span>
+            </span>
+          </p>
+          <div class="after-start-button" aria-label="game menu">
+            <span class="game-action start-action" aria-hidden="true"></span>
+            <span class="game-action list-action" aria-hidden="true"></span>
+            <a class="game-hitbox start-hitbox" href="/games/attack/" aria-label="start game"></a>
+            <a class="game-hitbox list-hitbox" href="/games/" aria-label="game list"></a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

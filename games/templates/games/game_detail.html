@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게임 상세</title>
+    <link rel="stylesheet" href="{% static 'games/css/games_detail.css' %}">
+</head>
+<body>
+    <div class="piro-scene">
+        <a href="{% url 'accounts:main' %}" class="piro-title-image" aria-label="메인으로"></a>
+
+        <nav class="piro-nav">
+            <a href="{% url 'accounts:logout' %}" class="piro-nav-logout" aria-label="로그아웃"></a>
+        </nav>
+
+        <div class="piro-modal{% if page_state == 'waiting_defender' %} is-wide{% elif page_state == 'finished' %} is-result{% endif %}">
+            <div class="piro-modal-title">
+                {{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}
+            </div>
+            <div class="piro-divider"></div>
+
+            {% if page_state == 'waiting_attacker' %}
+                <div class="piro-modal-status">진행중...</div>
+                <div class="piro-card-label">내가 낸 카드</div>
+                <div class="piro-card-row">
+                    <div class="piro-card-box">{{ my_card }}</div>
+                </div>
+                <div class="piro-modal-actions">
+                    <a href="{% url 'games:game_list' %}" class="piro-btn piro-btn-blue">전적목록</a>
+                </div>
+                <script>
+                    // 상대가 반격을 완료하면(status가 FINISHED로 바뀌면) 자동으로 새로고침한다.
+                    (function poll() {
+                        fetch("{% url 'games:status' game.id %}")
+                            .then(function (res) { return res.json(); })
+                            .then(function (data) {
+                                if (data.status === 'FINISHED') {
+                                    location.reload();
+                                } else {
+                                    setTimeout(poll, 3000);
+                                }
+                            })
+                            .catch(function () { setTimeout(poll, 3000); });
+                    })();
+                </script>
+
+            {% elif page_state == 'waiting_defender' %}
+                <div class="piro-modal-status is-alert">{{ game.attacker.username }}의 공격이 도착했습니다!</div>
+                <div class="piro-card-label">상대의 카드</div>
+                <div class="piro-card-row">
+                    <div class="piro-card-box is-hidden">?</div>
+                </div>
+                <div class="piro-modal-actions">
+                    {% if can_counter %}
+                        <a href="{% url 'games:counter' game.id %}" class="piro-btn piro-btn-green">대응하기</a>
+                    {% endif %}
+                    <a href="{% url 'games:game_list' %}" class="piro-btn piro-btn-blue">전적목록</a>
+                </div>
+
+            {% else %}
+                {% if game.win_condition == 'LOW' %}
+                    <div class="piro-rule-text">숫자가 작은 사람이 이깁니다.</div>
+                {% else %}
+                    <div class="piro-rule-text">숫자가 큰 사람이 이깁니다.</div>
+                {% endif %}
+
+                <div class="piro-result-cards">
+                    <div class="piro-card-slot">
+                        <div class="piro-card-name">{{ request.user.username }}</div>
+                        <div class="piro-card-box is-small-number">{{ my_card }}</div>
+                    </div>
+                    <div class="piro-vs-badge">VS</div>
+                    <div class="piro-card-slot">
+                        <div class="piro-card-name">{{ opponent.username }}</div>
+                        <div class="piro-card-box is-small-number is-opponent">{{ opponent_card }}</div>
+                    </div>
+                </div>
+
+                {% if result == 'WIN' %}
+                    <div class="piro-result-line win">결과 : 승리</div>
+                    <div class="piro-score-line positive">점수 : +{{ score_delta }}</div>
+                {% elif result == 'LOSE' %}
+                    <div class="piro-result-line lose">결과 : 패배</div>
+                    <div class="piro-score-line negative">점수 : {{ score_delta }}</div>
+                {% else %}
+                    <div class="piro-result-line">결과 : 무승부</div>
+                    <div class="piro-score-line">점수 : 0</div>
+                {% endif %}
+
+                <div class="piro-modal-actions">
+                    <a href="{% url 'games:game_list' %}" class="piro-btn piro-btn-blue">전적목록</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

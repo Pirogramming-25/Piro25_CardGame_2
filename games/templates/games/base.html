@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게임 상세</title>
+    <link rel="stylesheet" href="{% static 'games/css/games_detail.css' %}">
+</head>
+<body>
+    <div class="piro-scene">
+        <a href="{% url 'accounts:main' %}" class="piro-title-image" aria-label="메인으로"></a>
+
+        <nav class="piro-nav">
+            <a href="{% url 'accounts:logout' %}" class="piro-nav-logout" aria-label="로그아웃"></a>
+        </nav>
+        {% block content %}{% endblock %}
+    </div>
+</body>
